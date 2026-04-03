@@ -42,7 +42,7 @@ export default function CampsiteMap({ region = "ทั้งหมด", province
     if (province !== "ทั้งหมด") query = query.eq('province_th', province);
     if (district !== "ทั้งหมด") query = query.eq('district_th', district);
 
-    const { data, error } = await query;
+    const { data, error } = await query as { data: any[] | null, error: any };
 
     if (error) return;
 

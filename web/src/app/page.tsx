@@ -4,7 +4,8 @@ import Image from "next/image";
 import { Search, Tent, ChevronRight } from "lucide-react";
 import CampsiteList from "@/components/CampsiteList";
 import ThemeToggle from "@/components/ThemeToggle";
-import CampsiteMap from "@/components/maps/CampsiteMap";
+import dynamic from "next/dynamic";
+const CampsiteMap = dynamic(() => import("@/components/maps/CampsiteMap"), { ssr: false });
 import { useState, useMemo } from "react";
 import Link from "next/link";
 

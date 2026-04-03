@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Database } from '@/types/supabase';
 
-type CampsiteType = Database['public']['Enums']['campsite_type'];
+type CampsiteType = NonNullable<Database['public']['Tables']['campsites']['Row']['type']>;
 
 export default function SuggestCampsite() {
   const router = useRouter();
@@ -35,20 +35,21 @@ export default function SuggestCampsite() {
     setMessage(null);
 
     try {
-      const { error } = await supabase.from('campsites').insert([
-        {
-          name_th: formData.name_th,
-          name_en: formData.name_en,
-          region_th: formData.region_th,
-          province_th: formData.province_th,
-          district_th: formData.district_th,
-          type: formData.type,
-          description_th: formData.description_th,
-          amenities: formData.amenities,
-          location: `POINT(${formData.lng} ${formData.lat})`,
-          is_verified: false
-        }
-      ]);
+      const insertData: Database['public']['Tables']['campsites']['Insert'] = {
+        name_th: formData.name_th,
+        name_en: formData.name_en,
+        region_th: formData.region_th,
+        province_th: formData.province_th,
+        district_th: formData.district_th,
+        type: formData.type,
+        description_th: formData.description_th,
+        amenities: formData.amenities,
+        location: `POINT(${formData.lng} ${formData.lat})`,
+        is_verified: false
+      };
+
+      // @ts-expect-error Typescript type deduction fails for Supabase inserts on generic tables
+      const { error } = await supabase.from('campsites').insert([insertData]);
 
       if (error) throw error;
 

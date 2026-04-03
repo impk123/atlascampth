@@ -27,8 +27,10 @@ export type Database = {
           location: unknown
           name_en: string | null
           name_th: string
+          region_th: string
           province_th: string
-          type: Database["public"]["Enums"]["campsite_type"] | null
+          district_th: string
+          type: "national_park" | "private" | "glamping" | "wild_camping" | "caravan_park" | null
           updated_at: string
         }
         Insert: {
@@ -43,8 +45,10 @@ export type Database = {
           location: unknown
           name_en?: string | null
           name_th: string
+          region_th: string
           province_th: string
-          type?: Database["public"]["Enums"]["campsite_type"] | null
+          district_th: string
+          type?: "national_park" | "private" | "glamping" | "wild_camping" | "caravan_park" | null
           updated_at?: string
         }
         Update: {
@@ -59,8 +63,10 @@ export type Database = {
           location?: unknown
           name_en?: string | null
           name_th?: string
+          region_th?: string
           province_th?: string
-          type?: Database["public"]["Enums"]["campsite_type"] | null
+          district_th?: string
+          type?: "national_park" | "private" | "glamping" | "wild_camping" | "caravan_park" | null
           updated_at?: string
         }
         Relationships: []
